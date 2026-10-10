@@ -1,0 +1,1 @@
+import{i as e}from"./framework-BaE7mD_r.js";var t=e();function n(){return(0,t.jsx)(`a`,{href:`#top`,className:`mark`,"aria-label":`Home`,onClick:()=>window.dispatchEvent(new Event(`home:reset-cover`))})}export{n as default};

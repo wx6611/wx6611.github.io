@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="zh-CN">+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>项目连续阅读 · 排版预览</title>
+  <style>
+    @font-face{font-family:Portfolio;src:url('/fonts/portfolio-chinese.woff2')}
+    :root{--paper:#f4f3ef;--ink:#111;--rule:#b9b8b2;--margin:clamp(24px,4vw,64px)}
+    *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:"Helvetica Neue","PingFang SC",sans-serif}
+    a{color:inherit;text-decoration:none}a:hover{text-decoration:underline}a:focus-visible{outline:1px solid;outline-offset:6px}
+    header{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;padding:24px var(--margin);background:var(--paper);font-size:14px}
+    header span{font-size:12px;opacity:.5}
+    main{padding:0 var(--margin)}
+    .project{display:grid;grid-template-columns:minmax(0,3fr) minmax(0,7fr);gap:clamp(40px,7vw,112px);padding:64px 0 96px;align-items:start}
+    .project+.project{border-top:1px solid var(--rule)}
+    .description{position:sticky;top:112px;align-self:start}
+    h1{font-size:clamp(22px,2.3vw,36px);font-weight:400;line-height:1.12;margin:0 0 48px;overflow-wrap:anywhere}
+    .cn{font-size:22px;line-height:1.4;margin:0 0 8px}.year{font-size:14px;margin:0}
+    .summary{font-size:16px;line-height:1.65;margin:48px 0 0;max-width:320px;text-wrap:pretty}
+    .chapter{margin:96px 0 0}.chapter:first-child{margin-top:128px}
+    .chapter-copy{display:grid;grid-template-columns:minmax(100px,1fr) minmax(0,2.4fr);column-gap:32px;margin-bottom:56px}
+    .label{font-size:11px;line-height:1.6;margin:0;letter-spacing:.03em}
+    h2{font-size:20px;line-height:1.4;font-weight:400;margin:0}
+    .body{grid-column:2;font-size:16px;line-height:1.65;margin:40px 0 0;text-wrap:pretty}
+    .images{display:grid;grid-template-columns:1fr 1fr;gap:16px}.placeholder{display:grid;place-items:center;aspect-ratio:1;background:#deddd8;color:#666;font-size:13px}
+    figure{margin:16px 0 0}img{display:block;width:100%;height:auto;mix-blend-mode:multiply}figcaption{font-size:12px;opacity:.55;margin-top:12px}
+    footer{padding:32px var(--margin);border-top:1px solid var(--rule);font-size:14px}
+    @media(hover:hover) and (pointer:fine){*{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='4' fill='black'/%3E%3C/svg%3E") 8 8,auto}}
+    @media(max-width:767px){.project{grid-template-columns:1fr;gap:32px;padding:40px 0 64px}.description{position:static}h1{margin-bottom:24px}.summary{max-width:none;margin-top:24px}.chapter:first-child{margin-top:16px}.chapter-copy{grid-template-columns:1fr;gap:16px;margin-bottom:32px}.body{grid-column:1;margin-top:16px}header span{display:none}.chapter{margin-top:64px}}
+  </style>
+</head>
+<body>
+<header><a href="/?project=taihu-shanshui-district#selected-work">← Project</a><span>布局预览 · 正式项目内容尚未迁移</span></header>
+<main>
+  <section class="project">
+    <aside class="description"><h1>TAIHU SHANSHUI DISTRICT</h1><p class="cn">太湖山水主题街区</p><p class="year">2020</p><p class="summary">从传统山水文化出发，将人与自然的关系转化为街区的概念线索。山水不只是一种视觉背景，也成为组织功能、空间与游览体验的共同语言。</p></aside>
+    <div class="details">
+      <section class="chapter"><div class="chapter-copy"><p class="label">01 / CULTURAL MOTIF</p><h2>从山水意象建立概念</h2><p class="body">从人与山水的关系中提取文化线索，将传统意象转译为街区体验。此处为排版示意，正式版保留现有完整文案。</p></div><div class="images"><div class="placeholder">[原有山水图 · 预览占位]</div><div class="placeholder">[原有山水图 · 预览占位]</div></div></section>
+      <section class="chapter"><div class="chapter-copy"><p class="label">02 / SPATIAL PROGRAM</p><h2>让文化线索进入功能策划</h2><p class="body">功能策划将花园企业坊、科技聚芯、会汉中心、生态体验与原生湿岸等内容放入同一幅山水空间图景。研发、交流、休闲与生态体验形成并置关系，让抽象概念进一步对应到具体的街区节点。</p></div><figure><img src="/images/directory/taihu-program-clean-v71.png" alt="太湖山水主题街区功能策划全景"><figcaption>太湖山水主题街区功能策划全景 · 概念方案</figcaption></figure></section>
+    </div>
+  </section>
+  <section class="project">
+    <aside class="description"><h1>KNOWLEDGE INTO SYSTEMS</h1><p class="cn">城市更新实施决策与指引</p><p class="year">2021</p><p class="summary">将分散的政策、实施问题与更新经验组织成可复用的研究框架。从概念和范围界定，到更新内容、模式与实施运营，让专业知识能够支持具体项目中的判断。</p></aside>
+    <div class="details"><section class="chapter"><div class="chapter-copy"><p class="label">01 / PUBLICATION</p><h2>把研究沉淀为可使用的知识</h2><p class="body">受中建八局委托，参与城市更新研究与技术路径搭建，将阶段性成果组织为可讨论、可查阅的专业内容。</p></div><figure><img src="/images/directory/urban-renewal-publication-clean-v73.png" alt="城市更新出版成果与研究框架"></figure></section><section class="chapter"><div class="chapter-copy"><p class="label">02 / RESEARCH FRAMEWORK</p><h2>从更新对象走向实施问题</h2><p class="body">进一步区分居住、商业、旅游与文化类历史街区，围绕各自的问题建立“问题—策略—措施”的对应关系。</p></div><div class="placeholder">[后续章节 · 预览占位]</div></section></div>
+  </section>
+</main>
+<footer><a href="/#top">← Home</a></footer>
+</body>
+</html>

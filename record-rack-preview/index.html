@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="zh-CN">
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Works · 唱片架预览</title>
+<script>location.replace('/record-rack-v2'+location.search);</script>
+<style>
+:root{--paper:#f4f3ef;--ink:#111;--size:clamp(180px,24vw,330px)}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:"Helvetica Neue",Arial,"PingFang SC","Microsoft YaHei",sans-serif;overflow:hidden;cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16'%3E%3Ccircle cx='8' cy='8' r='4'/%3E%3C/svg%3E") 8 8,auto}button,a,input,select{cursor:inherit}header{position:absolute;inset:26px 3.2vw auto;display:flex;justify-content:space-between;align-items:center;font-size:18px}header a{color:inherit;text-decoration:none}.stage{height:100svh;perspective:1400px;overflow:hidden}.rack{position:absolute;left:50%;top:50%;width:0;height:0;transform-style:preserve-3d}.sleeve{position:absolute;width:var(--size);height:var(--size);left:calc(var(--size)*-.5);top:calc(var(--size)*-.5);padding:0;border:1px solid #d2d0c8;background:var(--paper);transform-style:preserve-3d;box-shadow:5px 12px 22px #1112;transition:transform 420ms cubic-bezier(.22,1,.36,1),filter 420ms,box-shadow 420ms}.sleeve img{width:100%;height:100%;object-fit:cover;display:block}.sleeve::after{content:'';position:absolute;inset:0;box-shadow:inset 3px 0 0 #ffffff60;pointer-events:none}.sleeve.active{box-shadow:10px 24px 34px #1113}.sleeve:focus-visible{outline:2px solid #111;outline-offset:5px}.info{position:absolute;left:3.2vw;right:3.2vw;bottom:10vh;display:flex;justify-content:space-between;gap:24px;align-items:end}.info h1{font-size:clamp(22px,3vw,38px);font-weight:400;margin:12px 0 0}.info p{font-size:12px;margin:0;letter-spacing:.06em}.info a{color:inherit;text-decoration:none;font-size:14px}.controls{position:absolute;bottom:26px;left:3.2vw;display:flex;gap:12px}.controls button{background:none;border:0;padding:10px;font:inherit;font-size:18px}.note{position:absolute;bottom:30px;right:3.2vw;font-size:11px;color:#666}details{position:absolute;right:3.2vw;top:70px;font-size:12px;background:var(--paper);padding:8px;z-index:100}details label{display:block;margin-top:12px}select{background:transparent;font:inherit;border:1px solid #bbb;padding:4px}@media(max-width:600px){.info{bottom:15vh;display:block}.info a{display:inline-block;margin-top:20px}.note{max-width:160px;text-align:right}.stage{perspective:950px}}@media(prefers-reduced-motion:reduce){.sleeve{transition:none}}
+</style>
+<header><a href="/#introduction">About</a><a href="/#top">／</a><span>Works</span></header>
+<main class="stage" aria-label="唱片架目录预览"><div class="rack" id="rack"></div></main>
+<section class="info" aria-live="polite"><div><p id="count"></p><h1 id="name"></h1></div><a id="view">View ↗</a></section>
+<div class="controls"><button id="prev" aria-label="上一个项目">←</button><button id="next" aria-label="下一个项目">→</button></div>
+<p class="note">滚轮切换 · 再次点击升起封套进入项目<br>布局预览，未替换正式目录</p>
+<details><summary>Tweaks</summary><label>透视 <select id="angle"><option value="48">标准</option><option value="32">舒展</option><option value="62">紧凑</option></select></label><label>升起 <input id="lift" type="range" min="60" max="170" value="110"></label></details>
+<script>
+const projects=[
+['独角兽岛','unicorn-island','unicorn-island/district.webp'],
+['汉口在场','hankou-present','hankou/published/asset-hankou-visual-language-overview.png'],
+['太湖山水主题街区','taihu-shanshui-district','directory/taihu-program-clean-v71.png'],
+['城市更新实施决策与指引','knowledge-into-systems','directory/urban-renewal-publication-clean-v73.png'],
+['复杂信息分析与决策可视化','regional-intelligence','regional-intelligence/regional-resources.webp'],
+['坪山产业与空间','pingshan-industry','pingshan-industry/jinsha-bihu-park.png'],
+['前湾园区新能源利用','qianwan-energy','qianwan-energy/update-2.png'],
+['芯片产业链全景平台','chip-industry-map','lab/chip.webp'],
+['雅思词汇学习 Agent','ielts-vocabulary-agent','lab/ielts.webp']];
+const rack=document.getElementById('rack'),nameEl=document.getElementById('name'),count=document.getElementById('count'),view=document.getElementById('view'),angle=document.getElementById('angle'),lift=document.getElementById('lift');
+let active=4,accum=0,last=0;
+const requested=new URLSearchParams(location.search).get('project');const found=projects.findIndex(p=>p[1]===requested);if(found>=0)active=found;
+const cards=projects.map((p,i)=>{const b=document.createElement('button');b.className='sleeve';b.setAttribute('aria-label',p[0]);const img=document.createElement('img');img.src='/images/'+p[2];img.alt=p[0];b.append(img);b.onclick=()=>{if(i===active)location.href='/work/'+p[1];else{active=i;draw()}};rack.append(b);return b});
+function draw(){const small=innerWidth<600,step=small?47:76;cards.forEach((b,i)=>{const d=i-active,chosen=d===0;b.classList.toggle('active',chosen);b.setAttribute('aria-pressed',String(chosen));b.style.transform=`translate3d(${d*step}px,${d*10-(chosen?Number(lift.value):0)}px,${-Math.abs(d)*32+(chosen?95:0)}px) rotateY(${-Number(angle.value)+(chosen?30:0)}deg) rotateX(7deg)`;b.style.zIndex=String(chosen?30:15-i);b.style.filter=chosen?'none':'brightness(.90)';});nameEl.textContent=projects[active][0];count.textContent=String(active+1).padStart(2,'0')+' / 09';view.href='/work/'+projects[active][1];}
+function move(delta){active=(active+delta+projects.length)%projects.length;draw()}
+window.addEventListener('wheel',e=>{if(e.target.closest('details'))return;e.preventDefault();accum+=Math.abs(e.deltaY)>Math.abs(e.deltaX)?e.deltaY:e.deltaX;const now=performance.now();if(Math.abs(accum)>45&&now-last>280){move(Math.sign(accum));accum=0;last=now}},{passive:false});
+window.addEventListener('keydown',e=>{if(e.target.closest('details'))return;if(['ArrowRight','ArrowDown','ArrowLeft','ArrowUp'].includes(e.key)){e.preventDefault();move(['ArrowRight','ArrowDown'].includes(e.key)?1:-1)}});
+document.getElementById('prev').onclick=()=>move(-1);document.getElementById('next').onclick=()=>move(1);angle.onchange=draw;lift.oninput=draw;window.addEventListener('resize',draw);draw();
+</script>
+</html>
